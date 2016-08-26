@@ -30,8 +30,13 @@ import java.util.Map;
 
 /**
  * Created by wei on 2016/7/21.
- * °ËµÂÖúÈË-°ËµÂ»°Ìâ
+ * å…«å¾·åŠ©äºº-å…«å¾·è¯é¢˜
+ 
+ 
  */
+ 
+ //its too young.
+ //are we ok?
 public class TopicsActivity extends BaseActivity {
 
     @ViewInject(R.id.title_middle)
@@ -57,7 +62,7 @@ public class TopicsActivity extends BaseActivity {
         setContentView(R.layout.activity_topics);
         ViewUtils.inject(this);
 
-        midTitle.setText("»°Ìâ");
+        midTitle.setText("è¯é¢˜");
 
         //ArrayList<HashMap<String,Object>> listTopics = getData();
         TopicsAdapter topicsAdapter = new TopicsAdapter(this);
@@ -70,9 +75,9 @@ public class TopicsActivity extends BaseActivity {
         for (int i = 0; i < 20; i++) {
             HashMap<String, Object> map = new HashMap<String, Object>();
             map.put("image", R.drawable.ic_launcher);
-            map.put("title", "Ğ¢Ç×");
-            map.put("button", "¹Ø×¢");
-            map.put("present", "ÃèÊö");
+            map.put("title", "å­äº²");
+            map.put("button", "å…³æ³¨");
+            map.put("present", "æè¿°");
             listTopics.add(map);
         }
         return listTopics;
@@ -89,7 +94,7 @@ public class TopicsActivity extends BaseActivity {
         @Override
         public int getCount() {
 
-            return getData().size();//·µ»ØÊı×éµÄ³¤¶È
+            return getData().size();//è¿”å›æ•°ç»„çš„é•¿åº¦
         }
 
         @Override
@@ -112,18 +117,18 @@ public class TopicsActivity extends BaseActivity {
                 holder.lvtopics_textview1 = (TextView)convertView.findViewById(R.id.lvtopics_textview1);
                 holder.lvtopics_textview2 = (TextView)convertView.findViewById(R.id.lvtopics_textview2);
                 holder.lvtopics_button = (Button)convertView.findViewById(R.id.lvtopics_button);
-                convertView.setTag(holder);//°ó¶¨ViewHolder¶ÔÏó
+                convertView.setTag(holder);//ç»‘å®šViewHolderå¯¹è±¡
             } else {
-                holder = (ViewHolder) convertView.getTag();//È¡³öViewHolder¶ÔÏó
+                holder = (ViewHolder) convertView.getTag();//å–å‡ºViewHolderå¯¹è±¡
             }
-                holder.lvtopics_textview1.setText("Ğ¢Ç×");
-                holder.lvtopics_textview2.setText("ÊÇÒ»ÖÖ´«Í³ÃÀµÂ");
+                holder.lvtopics_textview1.setText("å­äº²");
+                holder.lvtopics_textview2.setText("æ˜¯ä¸€ç§ä¼ ç»Ÿç¾å¾·");
                 holder.lvtopics_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        holder.lvtopics_button.setText("ÒÑ¹Ø×¢");
+                        holder.lvtopics_button.setText("å·²å…³æ³¨");
 
-                        Toast toast = Toast.makeText(getApplicationContext(), "¹Ø×¢³É¹¦", Toast.LENGTH_SHORT);
+                        Toast toast = Toast.makeText(getApplicationContext(), "å…³æ³¨æˆåŠŸ", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
 
