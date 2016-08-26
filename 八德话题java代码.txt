@@ -1,0 +1,154 @@
+package com.meishun.xinbade.activity;
+
+import android.content.Context;
+import android.media.Image;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.meishun.xinbade.R;
+import com.meishun.xinbade.base.BaseActivity;
+import com.meishun.xinbade.utils.ExitAppUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by wei on 2016/7/21.
+ * 八德助人-八德话题
+ */
+public class TopicsActivity extends BaseActivity {
+
+    @ViewInject(R.id.title_middle)
+    TextView midTitle;
+    @ViewInject(R.id.title_left)
+    TextView leftTitle;
+    @ViewInject(R.id.listview_topics)
+    ListView topicsListView;
+//    @ViewInject(R.id.lvtopics_image)
+//    ImageView lvtopics_image;
+//    @ViewInject(R.id.lvtopics_textview1)
+//    TextView textview1;
+//    @ViewInject(R.id.lvtopics_button)
+//    Button lvtopics_button;
+//    @ViewInject(R.id.lvtopics_textview2)
+//    TextView textview2;
+
+    ArrayList<HashMap<String, Object>> listTopics;
+
+    @Override
+    protected void onCreate(Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.activity_topics);
+        ViewUtils.inject(this);
+
+        midTitle.setText("话题");
+
+        //ArrayList<HashMap<String,Object>> listTopics = getData();
+        TopicsAdapter topicsAdapter = new TopicsAdapter(this);
+
+        topicsListView.setAdapter(topicsAdapter);
+    }
+
+    public ArrayList<HashMap<String, Object>> getData() {
+        ArrayList<HashMap<String, Object>> listTopics = new ArrayList<HashMap<String, Object>>();
+        for (int i = 0; i < 20; i++) {
+            HashMap<String, Object> map = new HashMap<String, Object>();
+            map.put("image", R.drawable.ic_launcher);
+            map.put("title", "孝亲");
+            map.put("button", "关注");
+            map.put("present", "描述");
+            listTopics.add(map);
+        }
+        return listTopics;
+    }
+
+
+    private class TopicsAdapter extends BaseAdapter {
+        private LayoutInflater layoutInflater;
+
+        public TopicsAdapter(Context context) {
+            this.layoutInflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        public int getCount() {
+
+            return getData().size();//返回数组的长度
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            final ViewHolder holder;
+            if (convertView == null) {
+                holder = new ViewHolder();
+                convertView = layoutInflater.inflate(R.layout.item_listview_topics,null);
+                holder.lvtopics_image = (ImageView)convertView.findViewById(R.id.lvtopics_image);
+                holder.lvtopics_textview1 = (TextView)convertView.findViewById(R.id.lvtopics_textview1);
+                holder.lvtopics_textview2 = (TextView)convertView.findViewById(R.id.lvtopics_textview2);
+                holder.lvtopics_button = (Button)convertView.findViewById(R.id.lvtopics_button);
+                convertView.setTag(holder);//绑定ViewHolder对象
+            } else {
+                holder = (ViewHolder) convertView.getTag();//取出ViewHolder对象
+            }
+                holder.lvtopics_textview1.setText("孝亲");
+                holder.lvtopics_textview2.setText("是一种传统美德");
+                holder.lvtopics_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        holder.lvtopics_button.setText("已关注");
+
+                        Toast toast = Toast.makeText(getApplicationContext(), "关注成功", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+
+                    }
+                });
+            return convertView;
+        }
+
+
+        public final class ViewHolder {
+            public ImageView lvtopics_image;
+            public TextView lvtopics_textview1;
+            public TextView lvtopics_textview2;
+            public Button lvtopics_button;
+        }
+    }
+
+    @OnClick(R.id.title_left)
+    private void getBack(View view) {
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        ExitAppUtils.getInstance().delActivity(this);
+        super.onDestroy();
+    }
+}
